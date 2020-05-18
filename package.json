@@ -1,0 +1,32 @@
+{
+	"name": "simple-ampify",
+	"version": "1.0.0",
+	"repository": "git@github.com:mazipan/simple-ampify.git",
+	"author": "Irfan Maulana <maulana.irfan@tokopedia.com>",
+	"license": "MIT",
+	"private": false,
+	"homepage": "https://github.com/mazipan/simple-ampify",
+	"source": "src/ampify.ts",
+	"main": "dist/ampify.js",
+	"module": "dist/ampify.module.js",
+	"unpkg": "dist/ampify.umd.js",
+	"typings": "dist/index.d.ts",
+	"scripts": {
+		"build": "microbundle src/ampify.ts --name Ampify",
+		"dev": "microbundle watch"
+	},
+	"files": [
+		"dist"
+	],
+	"keywords": [
+		"amp",
+		"amp-converter",
+		"amp-html"
+	],
+	"bugs": {
+		"url": "https://github.com/mazipan/simple-ampify/issues"
+	},
+	"devDependencies": {
+		"microbundle": "^0.12.0"
+	}
+}
