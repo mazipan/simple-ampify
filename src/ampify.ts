@@ -65,10 +65,10 @@ export default (html: string, options?: AmpifyOptions) => {
 	})
 
 	// Add AMP script before </head>
-	html = html.replace('</head>', getAmpScript(Boolean(options.analytics), Boolean(options.adsense)) + ampCSSBoilerplate + '</head>')
+	html = html.replace('</head>', getAmpScript(Boolean(options && options.analytics), Boolean(options && options.adsense)) + ampCSSBoilerplate + '</head>')
 
 	// Add AMP analytics
-	if (options.analytics && options.analytics.id) {
+	if (options && options.analytics && options.analytics.id) {
 		html = html.replace('</body>',
 			`
 			<amp-analytics type='googleanalytics'>
@@ -89,7 +89,7 @@ export default (html: string, options?: AmpifyOptions) => {
 	</body>`)
 	}
 
-	if (options.adsense && options.adsense.id) {
+	if (options && options.adsense && options.adsense.id) {
 		html = html.replace('</body>',
 			`
 			<amp-auto-ads type="adsense" data-ad-client="${options.adsense.id}"></amp-auto-ads>
