@@ -39,10 +39,11 @@ export default (html: string, options?: AmpifyOptions) => {
 		styleConcat += sub
 		return ''
 	})
-	html = html.replace('</head>', `<style amp-custom>${styleConcat}</style></head>`)
-
-	// Remove all !important in CSS
-	html = html.replace(/!important/gi, '')
+	// @ts-ignore
+	html = html.replace(/<style\>(.*?)?<\/style>/gi, (match, sub) => {
+		styleConcat = sub + styleConcat
+		return ''
+	})
 
 	// Remove preload and prefetch tags
 	html = html.replace(/<link[^>]*rel="(?:preload|prefetch)?"[^>]*>/gi, '')
@@ -57,7 +58,20 @@ export default (html: string, options?: AmpifyOptions) => {
 	})
 
 	// Remove data attributes from tags
-	html = html.replace(/\s*data-(?:[^=>]*="[^"]*"|[^=>\s]*)/gi, '')
+	html = html.replace(/\s*data-(v|n)-(?:[^=>]*="[^"]*"|[^=>\s]*)/gi, '')
+	html = html.replace(/javascript:void\(0\)/gi, '#')
+
+	// Replace unwanted attribute
+	// @ts-ignore
+	html = html.replace(/<div[^>]*name=(?:[^=>]*="[^"]*"|[^=>\s]*)/gi, (match) => {
+		return match.replace(/name/gi, 'data-name')
+	})
+
+	// Replace unwanted attribute
+	// @ts-ignore
+	html = html.replace(/<a[^>]*source="[a-z|-]*"/gi, (match) => {
+		return match.replace(/source=/gi, 'data-source=')
+	})
 
 	// Remove JS script tags except for ld+json
 	html = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, (match) => {
@@ -65,7 +79,17 @@ export default (html: string, options?: AmpifyOptions) => {
 	})
 
 	// Add AMP script before </head>
-	html = html.replace('</head>', getAmpScript(Boolean(options && options.analytics), Boolean(options && options.adsense)) + ampCSSBoilerplate + '</head>')
+	html = html.replace('</head>', getAmpScript(Boolean(options && options.analytics), Boolean(options && options.adsense)) +  '</head>')
+
+	// Add style
+	html = html.replace('</head>', `
+	<style amp-custom>
+		${styleConcat.replace(/\[data-v-[a-z|\d|\s]*]/gi, '').replace(/!important/gi, '')}
+	</style>
+
+	${ampCSSBoilerplate}
+
+	</head>`)
 
 	// Add AMP analytics
 	if (options && options.analytics && options.analytics.id) {
