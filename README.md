@@ -1,6 +1,6 @@
 # simple-ampify
 
-A simple plain HTML to AMP converter for personal use
+⚡ A simple plain HTML to AMP converter for personal use
 
 ![](https://img.shields.io/npm/v/simple-ampify.svg) ![](https://badgen.net/bundlephobia/minzip/simple-ampify) ![](https://img.shields.io/npm/dt/simple-ampify.svg)
 
