@@ -36,6 +36,11 @@ const options = {
 const result = ampify(htmlString, options)
 ```
 
+## Support me
+
+- Via [trakteer](https://trakteer.id/mazipan)
+- Direct support, [send me an email](mailto:mazipanneh@gmail.com)
+
 ---
 
 Copyright © 2020 Built with ❤️ by Irfan Maulana
