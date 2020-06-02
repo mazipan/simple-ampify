@@ -9,10 +9,11 @@ interface AmpifyOptions {
 
 const ampCSSBoilerplate = '<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>';
 
-const getAmpScript = (analytics: boolean, adsense: boolean) => {
+const getAmpScript = (analytics: boolean, adsense: boolean, accordion: boolean) => {
 	const baseScript = `<script async src="https://cdn.ampproject.org/v0.js"></script>`;
 	const analyticsScript = `<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>`;
 	const adsenseScript = `<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>`;
+	const accordionScript = `<script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>`;
 
 	let res = baseScript;
 	if (analytics) {
@@ -20,6 +21,9 @@ const getAmpScript = (analytics: boolean, adsense: boolean) => {
 	}
 	if (adsense) {
 		res += adsenseScript;
+	}
+	if (accordion) {
+		res += accordionScript;
 	}
 	return res;
 }
@@ -79,7 +83,8 @@ export default (html: string, options?: AmpifyOptions) => {
 	})
 
 	// Add AMP script before </head>
-	html = html.replace('</head>', getAmpScript(Boolean(options && options.analytics), Boolean(options && options.adsense)) +  '</head>')
+	const isAccordion: boolean = html.includes('amp-accordion')
+	html = html.replace('</head>', getAmpScript(Boolean(options && options.analytics), Boolean(options && options.adsense), isAccordion) +  '</head>')
 
 	// Add style
 	html = html.replace('</head>', `
