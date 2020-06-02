@@ -1,6 +1,6 @@
 # simple-ampify
 
-A simple plain HTML to AMP converter for personal use
+⚡ A simple plain HTML to AMP converter for personal use
 
 ![](https://img.shields.io/npm/v/simple-ampify.svg) ![](https://badgen.net/bundlephobia/minzip/simple-ampify) ![](https://img.shields.io/npm/dt/simple-ampify.svg)
 
@@ -35,6 +35,11 @@ const options = {
 }
 const result = ampify(htmlString, options)
 ```
+
+## Support me
+
+- Via [trakteer](https://trakteer.id/mazipan)
+- Direct support, [send me an email](mailto:mazipanneh@gmail.com)
 
 ---
 
