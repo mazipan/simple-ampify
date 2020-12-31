@@ -27,9 +27,10 @@ const getAmpScript = (analytics: boolean, adsense: boolean, accordion: boolean) 
 	}
 	return res;
 }
+
 /**
- * @param {string} html - a Html string
- * @param {Object} html - a n options {analytics: {id}, adsense: {id}}
+ * @param {string} html - Html string
+ * @param {Object} options - AmpifyOptions - { analytics: { id }, adsense: { id } }
  *
  */
 export default (html: string, options?: AmpifyOptions) => {
